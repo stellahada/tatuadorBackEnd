@@ -1,0 +1,29 @@
+create schema tattoo;
+use tattoo;
+
+create table login(
+id_login int primary key auto_increment, 
+ds_email varchar(200),
+ds_senha varchar(200)
+);
+
+create table produto(
+id_produto int primary key auto_increment,
+ds_nome varchar(200) not null, 
+img_url varchar(200) not null,
+qntd_disponivel varchar(200) not null,
+qntd_total varchar(200) not null
+);
+
+create table agenda(
+id_sessao int primary key auto_increment,
+nm_cliente varchar(200) not null,
+qntd_valor float not null,
+ds_descricao text not null,
+dt_data date not null,
+ds_horario varchar(200) not null, 
+img_url varchar(200) not null,
+ds_status varchar(200) not null
+);
+
+insert into login(ds_email,ds_senha) values('adm@gmail.com','123');
