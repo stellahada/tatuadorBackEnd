@@ -1,6 +1,8 @@
 import { Router } from "express";
 const endpoinst = Router();
 
+import { autenticar } from '../utils/jwt.js';
+
 
 import BuscaAgendaService from "../service/agenda/buscaAgendaService.js";
 import RegistrarAgendaService from "../service/agenda/registrarAgendaService.js";
@@ -9,7 +11,7 @@ import AlterarAgendaService from "../service/agenda/alteraAgendaService.js";
 import AlterarStatusService from "../service/agenda/alterarStatusService.js";
 
 
-endpoinst.get('/agenda',async(req,resp)=>{
+endpoinst.get('/agenda',autenticar,async(req,resp)=>{
     const agenda =  await BuscaAgendaService();
 
     resp.send({
@@ -19,7 +21,7 @@ endpoinst.get('/agenda',async(req,resp)=>{
 
 
 
-endpoinst.post('/agenda',async(req,resp)=>{
+endpoinst.post('/agenda',autenticar,async(req,resp)=>{
     let agenda = req.body;
     const informacao = await RegistrarAgendaService(agenda);
   
@@ -28,7 +30,7 @@ endpoinst.post('/agenda',async(req,resp)=>{
     })
   })
   
-  endpoinst.delete('/agenda/:id',async(req,resp)=>{
+  endpoinst.delete('/agenda/:id',autenticar,async(req,resp)=>{
     let id = req.params.id
     let deletado = await DeletaAgendaService(id);
 
@@ -37,7 +39,7 @@ endpoinst.post('/agenda',async(req,resp)=>{
     })
   })
   
-  endpoinst.put('/agenda/:id',async (req, resp) => {
+  endpoinst.put('/agenda/:id',autenticar,async (req, resp) => {
         let id = req.params.id;
         let agenda = req.body;
   
@@ -49,7 +51,7 @@ endpoinst.post('/agenda',async(req,resp)=>{
   
   })
 
-  endpoinst.put('/agenda/:id/:status',async (req, resp) => {
+  endpoinst.put('/agenda/:id/:status',autenticar,async (req, resp) => {
     let id = req.params.id;
     let status = req.params.status
 
